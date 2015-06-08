@@ -2,22 +2,18 @@ package ru.android.ainege.shoppinglist;
 
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 
 /**
  * Created by Belkin on 06.06.2015.
@@ -40,9 +36,7 @@ public class ShoppingListFragment extends ListFragment {
         list.add("Мясо2");
         list.add("Мясо2");
         list.add("Мясо3");
-
-
-
+        list.add("Мясо3");
 
         ItemAdapter adapter = new ItemAdapter(list);
         setListAdapter(adapter);
@@ -50,7 +44,7 @@ public class ShoppingListFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_shopping_list, container, false);
+        View v = inflater.inflate(R.layout.fragment_shopping_list, container, false);
 
         EditText newItem = (EditText)v.findViewById(R.id.newItem_editText);
         newItem.setOnFocusChangeListener(new View.OnFocusChangeListener() {
