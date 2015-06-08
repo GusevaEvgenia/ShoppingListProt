@@ -2,31 +2,62 @@ package ru.android.ainege.shoppinglist;
 
 import android.app.ListFragment;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 /**
  * Created by Belkin on 06.06.2015.
  */
 public class ShoppingListFragment extends ListFragment {
+    ArrayList<String> list;
+    ListView listItem;
+    LinearLayout layout;
+    TextView nameList;
+    EditText nm;
+    LinearLayout lt;
+    int sum;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ArrayList<String> list = new ArrayList<String>();
+        list = new ArrayList<String>();
         list.add("Мясо1");
         list.add("Мясо2");
-        list.add("Мясо3");
-        list.add("Мясо4");
+        list.add("Мясо2");
+        list.add("Мясо3");list.add("Мясо1");
+        list.add("Мясо2"); list.add("Мясо1");
+        list.add("Мясо2");
+        list.add("Мясо2");
+        list.add("Мясо3");list.add("Мясо1");
+        list.add("Мясо2"); list.add("Мясо1");
+        list.add("Мясо2");
+        list.add("Мясо2");
+        list.add("Мясо3");list.add("Мясо1");
+        list.add("Мясо2"); list.add("Мясо1");
+        list.add("Мясо2");
+        list.add("Мясо2");
+        list.add("Мясо3");list.add("Мясо1");
+        list.add("Мясо2"); list.add("Мясо1");
+        list.add("Мясо2");
+        list.add("Мясо2");
+        list.add("Мясо3");list.add("Мясо1");
+        list.add("Мясо2");
+
 
         ItemAdapter adapter = new ItemAdapter(list);
         setListAdapter(adapter);
@@ -35,8 +66,62 @@ public class ShoppingListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_shopping_list, container, false);
+
+        EditText newItem = (EditText)v.findViewById(R.id.newItem_editText);
+        newItem.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if(b){
+                    Toast.makeText(getActivity(), "Добавление нового товара", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        listItem = (ListView) v.findViewById(android.R.id.list);
+        layout = (LinearLayout) v.findViewById(R.id.hhhh);
+
+        nameList = (TextView) v.findViewById(R.id.listName_textView);
+        nm = (EditText) v.findViewById(R.id.newItem_editText);
+        lt = (LinearLayout) v.findViewById(R.id.layoutSize);
+
+        ViewTreeObserver vto = layout.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int layoutH = layout.getHeight();
+                int nameH = nameList.getHeight();
+                int newH = nm.getHeight();
+                int listH;
+                int layH = lt.getHeight();
+                ViewGroup.LayoutParams params = listItem.getLayoutParams();
+                if(sum == 0){
+                    sum = nameH+newH+layH;
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    listItem.setLayoutParams(params);
+                    listItem.requestLayout();
+                }
+                listH = listItem.getHeight();
+
+
+                if(listH>(layoutH-sum)){
+                        params.height = layoutH-sum-10;
+                        listItem.setLayoutParams(params);
+                        listItem.requestLayout();
+                }else if(listH < 4){
+                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                    listItem.setLayoutParams(params);
+                    listItem.requestLayout();
+                }
+            }
+        });
+
+
+
+
+
         return v;
     }
+
 
     private class ItemAdapter extends ArrayAdapter<String>{
         public ItemAdapter(ArrayList<String> items) {
@@ -65,7 +150,7 @@ public class ShoppingListFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        //TODO edit item+++++
-        Toast.makeText(getActivity(), "Выбрана: " + getListAdapter().getItem(position), Toast.LENGTH_SHORT).show();
+        //TODO edit item
+        Toast.makeText(getActivity(), "Редактирование: " + getListAdapter().getItem(position), Toast.LENGTH_SHORT).show();
     }
 }
