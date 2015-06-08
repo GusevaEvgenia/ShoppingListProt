@@ -39,24 +39,9 @@ public class ShoppingListFragment extends ListFragment {
         list.add("Мясо1");
         list.add("Мясо2");
         list.add("Мясо2");
-        list.add("Мясо3");list.add("Мясо1");
-        list.add("Мясо2"); list.add("Мясо1");
-        list.add("Мясо2");
-        list.add("Мясо2");
-        list.add("Мясо3");list.add("Мясо1");
-        list.add("Мясо2"); list.add("Мясо1");
-        list.add("Мясо2");
-        list.add("Мясо2");
-        list.add("Мясо3");list.add("Мясо1");
-        list.add("Мясо2"); list.add("Мясо1");
-        list.add("Мясо2");
-        list.add("Мясо2");
-        list.add("Мясо3");list.add("Мясо1");
-        list.add("Мясо2"); list.add("Мясо1");
-        list.add("Мясо2");
-        list.add("Мясо2");
-        list.add("Мясо3");list.add("Мясо1");
-        list.add("Мясо2");
+        list.add("Мясо3");
+
+
 
 
         ItemAdapter adapter = new ItemAdapter(list);
@@ -78,52 +63,11 @@ public class ShoppingListFragment extends ListFragment {
         });
 
         listItem = (ListView) v.findViewById(android.R.id.list);
-        layout = (LinearLayout) v.findViewById(R.id.hhhh);
-
-        nameList = (TextView) v.findViewById(R.id.listName_textView);
-        nm = (EditText) v.findViewById(R.id.newItem_editText);
-        lt = (LinearLayout) v.findViewById(R.id.layoutSize);
-
-        ViewTreeObserver vto = layout.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                int layoutH = layout.getHeight();
-                int nameH = nameList.getHeight();
-                int newH = nm.getHeight();
-                int listH;
-                int layH = lt.getHeight();
-                ViewGroup.LayoutParams params = listItem.getLayoutParams();
-                if(sum == 0){
-                    sum = nameH+newH+layH;
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    listItem.setLayoutParams(params);
-                    listItem.requestLayout();
-                }
-                listH = listItem.getHeight();
-
-
-                if(listH>(layoutH-sum)){
-                        params.height = layoutH-sum-10;
-                        listItem.setLayoutParams(params);
-                        listItem.requestLayout();
-                }else if(listH < 4){
-                    params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    listItem.setLayoutParams(params);
-                    listItem.requestLayout();
-                }
-            }
-        });
-
-
-
-
-
         return v;
     }
 
-
     private class ItemAdapter extends ArrayAdapter<String>{
+
         public ItemAdapter(ArrayList<String> items) {
             super(getActivity(), 0, items);
         }
