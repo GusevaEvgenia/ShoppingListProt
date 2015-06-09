@@ -37,6 +37,9 @@ public class ShoppingListFragment extends ListFragment {
         list.add("Мясо2");
         list.add("Мясо3");
         list.add("Мясо3");
+        list.add("Мясо2");
+        list.add("Мясо3");
+        list.add("Мясо3");
 
         ItemAdapter adapter = new ItemAdapter(list);
         setListAdapter(adapter);
